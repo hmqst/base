@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <!-- 定义文件输出格式, 编码方式, 输出文件的路径 -->
+    <property name="pattern"
+              value="[%date{yyyy-MM-dd HH:mm:ss.SSS}] %X{logthreadId} %-5level %logger{80} %method %line - %msg%n"/>
+    <property name="charsetEncoding" value="UTF-8"/>
+    <property name="logPath" value="/root/base/logs/base-log"/>
+
+    <!-- CONSOLG 控制台日志-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%blue(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level)  |%boldGreen(%logger:%line) |%black(%msg%n)</pattern>
+            <charset>${charsetEncoding}</charset>
+        </encoder>
+    </appender>
+
+    <!-- INFO 输出到文件 -->
+    <appender name="infoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logPath}${file.separator}base-INFO.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset>${charsetEncoding}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${logPath}${file.separator}%d{yyyy-MM-dd}${file.separator}base-INFO-%d{yyyy-MM-dd}.%i.log.zip
+            </fileNamePattern>
+            <maxHistory>90</maxHistory>
+            <maxFileSize>30MB</maxFileSize>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- 设置日志输出级别 -->
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <!-- WARN 输出到文件 -->
+    <appender name="warnLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logPath}${file.separator}base-WARN.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset>${charsetEncoding}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${logPath}${file.separator}%d{yyyy-MM-dd}${file.separator}base-WARN-%d{yyyy-MM-dd}.%i.log.zip
+            </fileNamePattern>
+            <maxHistory>90</maxHistory>
+            <maxFileSize>30MB</maxFileSize>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- 设置日志输出级别 -->
+            <level>WARN</level>
+        </filter>
+    </appender>
+
+    <!-- ERROR 输出到文件 -->
+    <appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logPath}${file.separator}base-ERROR.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset>${charsetEncoding}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${logPath}${file.separator}%d{yyyy-MM-dd}${file.separator}base-ERROR-%d{yyyy-MM-dd}.%i.log.zip
+            </fileNamePattern>
+            <maxHistory>90</maxHistory>
+            <maxFileSize>30MB</maxFileSize>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- 设置日志输出级别 -->
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
+    <!-- 日志输出到LogStash -->
+    <appender name="logStash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>192.168.190.1:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" >
+            <!-- 指定日志索引名称 -->
+            <customFields>{"appname":"base"}</customFields>
+        </encoder>
+    </appender>
+
+    <!--配置日志输出的级别-->
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="infoLog"/>
+        <appender-ref ref="warnLog"/>
+        <appender-ref ref="errorLog"/>
+        <appender-ref ref="logStash"/>
+    </root>
+</configuration>

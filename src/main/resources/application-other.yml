@@ -1,0 +1,13 @@
+minio:
+  ## 以下仅仅本机测试,项目中不同文件肯定肯定存放的位置不一样，所以bucket（桶名也是不固定的）
+  url: http://192.168.8.97:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: test
+netty:
+  host: 127.0.0.1
+  port: 8090 # 监听端口
+  bossThread: 4 # 线程数
+  workerThread: 4 # 线程数
+  keepalive: true # 保持连接
+  backlog: 150

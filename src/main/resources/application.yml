@@ -1,0 +1,114 @@
+server:
+  port: 8080 # 443
+http:
+  port: 8080 # 80
+spring:
+  profiles:
+    active: jdbc,redis,other # 多配置文件 ssl
+  servlet: # servlet文件上传
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      max-file-size: 400MB
+      max-request-size: 4000MB
+      resolve-lazily: false
+  rabbitmq: # 消息中间件
+    host: 127.0.0.1
+    port: 5672 # SSL 5671 guest  admin 123456
+    username: guest
+    password: guest
+    virtual-host: /
+#  task: # 定时任务
+#    scheduling:
+#      pool:
+#        size: 5
+#      thread-name-prefix: scheduling
+logging:
+  level:
+    com.example.base.dao: debug # 记录持久层进出SQL
+knife4j:
+  enable: true
+# -------------------------------------------------------------------------------------
+#  PO  持久（与数据库一一对应）
+#  BO  业务（多表联合查询结果）
+#  DTO 数据传输（Controller与Service交互）
+#  VO  视图（View与Controller交互）
+# -------------------------------------------------------------------------------------
+
+# 端口说明（ELK启动顺序为 E >= L > K）
+
+# ElasticSearch   9200
+# LogStash        4560
+# kibana          5601
+# RabbitMQ        5672 15672
+# Minio           9000（不可用127.0.0.1）
+# Netty           8090
+# Redis           6379
+# MySQL           3306
+# -------------------------------------------------------------------------------------
+
+# Java 8特性
+# Lambda表达式 ( String x, Double y) -> { }   （仅应用于函数式接口即只存在一个抽象方法的接口 @FunctionalInterface）
+
+# 函数式接口常用
+# Supplier<T>       T get();              生产
+# Consumer<T>       void accept(T t);     消费
+# Function<T, R>    R apply(T t);         函数式
+# Predicate<T>      boolean test(T t);    断言
+
+# 函数式接口扩展
+# BiFunction<T, U, R>    R apply(T t, U u);
+# UnaryOperator<T>       T apply(T t);
+# BinaryOperator<T>      T apply(T t1, T t2);
+# BiConsumer<T, U>       void accept(T t, U u);
+# ToIntFunction<T>       int applyAsInt(T value);
+# IntFunction<R>         R apply(int value);
+# ......
+# -------------------------------------------------------------------------------------
+
+# Java 8特性
+# Stream Api 应用于集合和数组
+
+# 拓展类 LongStream DoubleStream IntStream 用于生成基础类型流
+
+# 筛选和切片
+# filter(Predicate p)       过滤
+# distinct()                去重（根据hashcode和equals）
+# skip(long n)              跳过前n个 不足n个返回空流
+# limit(long maxSize)       截短使其不会超过maxSize
+
+# 映射
+# map(Function<? super T, ? extends R>                                     元素转换或提取
+# flatMap(Function<? super T, ? extends Stream<? extends R>> mapper)       元素转换或提取后转换为新的流
+
+# 排序
+# sorted()                               自然排序（a-b-c）
+# sorted(Comparator comparator)          自定义排序
+
+# 查找与匹配
+# allMatch(Predicate p)                  是否匹配所有
+# anyMatch(Predicate p)                  是否存在正确匹配
+# noneMatch(Predicate p)                 是否不匹配所有
+# findFirst()                            获取第一个元素
+# findAny()                              获取任意一个元素
+# count()                                统计统计条数
+# max(Comparator comparator)             获取最大
+# min(Comparator comparator)             获取最小
+
+# 规约和收集
+# reduce()                               元素结合并返回类型值
+# collect()                              元素结合并转换为其他数据形式（提供了Collects工具类）
+
+# 并行和串行
+# parallel()                             切换到并行（Fork/Join框架，一个任务分多个子任务执行后连接，大数据量计算时使用）
+# sequential()                           切换到串行
+# -------------------------------------------------------------------------------------
+
+# Java 8新特性
+# 新的日期和时间Api（线程安全）
+# 基础时间                 LocalDate LocalTime LocalDateTime                 LocalDateTime.now()
+# 时间戳和时间间隔计算     Instant Duration（时间计算） Period（日期计算）     Duration.between(start, stop).toMillis()
+# 时间矫正器              TemporalAdjuster（提供了TemporalAdjusters工具类）   LocalDateTime.now().with(TemporalAdjusters.firstDayOfYear())
+
+
+
