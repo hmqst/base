@@ -3,12 +3,14 @@ package com.example.base.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.apache.commons.lang3.ObjectUtils;
-import org.codehaus.jackson.JsonProcessingException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,6 +49,22 @@ public class JacksonConfig {
         // 连接Orcale数据库时，如果存在字段TimeStamp且返回使用oracle.sql.TIMESTAMP或map接收时，序列化会出错
         // 应该使用java.sql.Timestamp接收
         // objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+        /*// 对象类型的""转null
+        objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+        // 自定义反序列化器对String进行处理
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(String.class, new StdDeserializer<String>(String.class) {
+            @Override
+            public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+                String result = StringDeserializer.instance.deserialize(p, ctxt);
+                if (StringUtils.isEmpty(result)) {
+                    return null;
+                }
+                return result;
+            }
+        });
+        objectMapper.registerModule(module);*/
 
         // 字段保留，将null值转为""
         objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
