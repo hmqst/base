@@ -28,10 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Future;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -99,8 +96,8 @@ public class ThreadRollBackController {
             // 主线程等待子线程数据插入完成（判断是否需要回滚后子线程执行回滚或提交）
             CountDownLatch threadLatch = new CountDownLatch(lists.size());
             // 存储任务的返回结果，返回true表示需要回滚
-            List<Boolean> transactionStatuses = Collections.synchronizedList(new ArrayList<Boolean>());
-            // 多线程操作必须使用对象
+            List<Boolean> transactionStatuses = new CopyOnWriteArrayList<>();
+            // 多线程操作必须使用对象（原子类 AtomicBoolean）
             RollBack rollBack = new RollBack(false);
             // 存储子线程结束后返回的结果值
             List<Future<Object>> futures = new ArrayList<>();

@@ -1,7 +1,6 @@
 package com.example.base.aspect;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.Date;

@@ -1,16 +1,11 @@
 package com.example.base.utils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
-import sun.util.resources.LocaleData;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -34,7 +29,7 @@ public class DateTimeConvert {
     }
 
     private static FastDateFormat getFastDateFormat(TimeZone timeZone, String pattern, FormatTypeEnum formatTypeEnum) {
-        if (StringUtils.isBlank(pattern)){
+        if (StringUtils.isBlank(pattern)) {
             switch (formatTypeEnum) {
                 case DATE:
                     pattern = DATE_PATTERN;
@@ -48,7 +43,7 @@ public class DateTimeConvert {
                     break;
             }
         }
-        if (timeZone == null){
+        if (timeZone == null) {
             timeZone = TimeZone.getDefault();
         }
         return FastDateFormat.getInstance(pattern, timeZone);

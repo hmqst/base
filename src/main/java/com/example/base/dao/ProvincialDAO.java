@@ -30,7 +30,6 @@ public interface ProvincialDAO {
      */
     List<ProvincialPO> listAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
-
     /**
      * 通过实体作为筛选条件查询
      *

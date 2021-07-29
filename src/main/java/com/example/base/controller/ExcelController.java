@@ -59,13 +59,13 @@ public class ExcelController {
     @PostMapping("read")
     public ResultBean read(MultipartFile file) {
         try {
-            //判断文件
+            // 判断文件
             if (file == null) {
                 return ResultBean.fail("请选择文件进行上传");
             }
-            //获得文件名
+            // 获得文件名
             String filename = file.getOriginalFilename();
-            //判断文件名是否合法
+            // 判断文件名是否合法
             if (filename != null && !filename.matches("^.+\\.(?i)(xls)$") && !filename.matches("^.+\\.(?i)(xlsx)$")) {
                 return ResultBean.fail("文件格式不正确");
             }

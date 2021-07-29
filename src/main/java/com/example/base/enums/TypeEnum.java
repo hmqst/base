@@ -42,23 +42,23 @@ public enum TypeEnum {
     }
 
 
-    private static final Map<Integer, TypeEnum> codeToEnum = new HashMap<>();
-    private static final Map<String, TypeEnum> displayToEnum = new HashMap<>();
+    private static final Map<Integer, TypeEnum> CODE_TO_ENUM = new HashMap<>();
+    private static final Map<String, TypeEnum> DISPLAY_TO_ENUM = new HashMap<>();
 
     //静态代码块初始化map
     static {
         for (TypeEnum type : TypeEnum.values()) {
-            codeToEnum.put(type.getCode(), type);
-            displayToEnum.put(type.getDisplay(), type);
+            CODE_TO_ENUM.put(type.getCode(), type);
+            DISPLAY_TO_ENUM.put(type.getDisplay(), type);
         }
     }
 
     public static TypeEnum valueOfByCode(Integer code) {
-        return codeToEnum.get(code);
+        return CODE_TO_ENUM.get(code);
     }
 
     public static TypeEnum valueOfByDisplay(String display) {
-        return displayToEnum.get(display);
+        return DISPLAY_TO_ENUM.get(display);
     }
 
     @JsonCreator

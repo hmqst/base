@@ -23,7 +23,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         content.append("--服务器回复");
         content.append(System.getProperty("line.separator"));
 
-        //将客户端发送过来的消息刷到所有的channel中
+        // 将客户端发送过来的消息刷到所有的channel中
         for (Channel channel : clients) {
             channel.writeAndFlush(Unpooled.copiedBuffer(content.toString().getBytes()));
         }
@@ -45,8 +45,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
-        //当handlerRemoved 被触发时候，channelGroup会自动移除对应的channel
-        //clients.remove(ctx.channel());
+        // 当handlerRemoved 被触发时候，channelGroup会自动移除对应的channel
+        /// clients.remove(ctx.channel());
         log.info("【Netty服务端】客户端断开，当前被移除的channel是：" + ctx.channel());
     }
 }

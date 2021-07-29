@@ -36,23 +36,23 @@ public enum SexEnum {
         this.display = display;
     }
 
-    private static final Map<Integer, SexEnum> codeToEnum = new HashMap<>();
-    private static final Map<String, SexEnum> displayToEnum = new HashMap<>();
+    private static final Map<Integer, SexEnum> CODE_TO_ENUM = new HashMap<>();
+    private static final Map<String, SexEnum> DISPLAY_TO_ENUM = new HashMap<>();
 
     //静态代码块初始化map
     static {
         for (SexEnum type : SexEnum.values()) {
-            codeToEnum.put(type.getCode(), type);
-            displayToEnum.put(type.getDisplay(), type);
+            CODE_TO_ENUM.put(type.getCode(), type);
+            DISPLAY_TO_ENUM.put(type.getDisplay(), type);
         }
     }
 
     public static SexEnum valueOfByCode(Integer code) {
-        return codeToEnum.get(code);
+        return CODE_TO_ENUM.get(code);
     }
 
     public static SexEnum valueOfByDisplay(String display) {
-        return displayToEnum.get(display);
+        return DISPLAY_TO_ENUM.get(display);
     }
 
     @JsonCreator

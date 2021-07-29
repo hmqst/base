@@ -23,7 +23,7 @@ public class NettyServer {
     @Resource
     private ServerChannelInitializer serverChannelInitializer;
 
-    //@PostConstruct
+    // @PostConstruct
     @Async
     public void start() throws Exception {
         log.info("【Netty服务端】Netty启动" + Thread.currentThread().getName());

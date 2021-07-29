@@ -1,8 +1,8 @@
 # 证书路径
 server:
   ssl:
-    key-store: classpath:4400729_www.ifc-iot.top.pfx
-    key-store-password: u3p40JpN
+    key-store: classpath:pfx文件名（放在 resources 下）
+    key-store-password: 密码
     enabled: true
-    key-store-type: PKCS12
+    key-store-type: 类型
 

@@ -34,7 +34,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
         // 1024报文最大长度 true超出最大长度立刻抛出异常 true解析到的报文不带换行符
         pipeline.addLast(new LineBasedFrameDecoder(1204, true, true));
         // 定长协议 使用时不需要指定编码器
-        // pipeline.addLast(new FixedLengthFrameDecoder(3));
+        /// pipeline.addLast(new FixedLengthFrameDecoder(3));
         // 定义反序列化器 将报文ByteBuf解析为java对象
         pipeline.addLast(new StringDecoder());
         pipeline.addLast(new ServerHandler());

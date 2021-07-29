@@ -1,4 +1,5 @@
 package com.example.base.dao;
+
 import com.example.base.po.ExcelPO;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,8 +20,6 @@ public interface ExcelErrorDAO {
      * @return 实例对象
      */
     ExcelPO getById(Integer id);
-
-
 
     /**
      * 通过实体作为筛选条件查询

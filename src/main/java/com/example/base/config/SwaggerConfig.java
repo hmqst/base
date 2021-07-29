@@ -1,6 +1,5 @@
 package com.example.base.config;
 
-import com.google.common.collect.Lists;
 import com.google.common.net.HttpHeaders;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +29,7 @@ public class SwaggerConfig {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                //.useDefaultResponseMessages(false) / /通过 Docket 的 useDefaultResponseMessages 方法告诉 Swagger 不使用默认的 HTTP 响应消息
+                //.useDefaultResponseMessages(false) // 通过 Docket 的 useDefaultResponseMessages 方法告诉 Swagger 不使用默认的 HTTP 响应消息
                 .pathMapping("/")
                 .select()
                 //.apis(RequestHandlerSelectors.withClassAnnotation(Api.class)) // 只生成被Api这个注解注解过的类接

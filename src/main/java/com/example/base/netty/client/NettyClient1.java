@@ -89,9 +89,7 @@ public class NettyClient1 {
                         @Override
                         public void channelInactive(ChannelHandlerContext ctx) throws Exception {
                             final EventLoop loop = ctx.channel().eventLoop();
-                            loop.schedule(() -> {
-                                connect();
-                            }, 1L, TimeUnit.SECONDS);
+                            loop.schedule(NettyClient1.this::connect, 1L, TimeUnit.SECONDS);
                             super.channelInactive(ctx);
                         }
                     });
@@ -103,9 +101,7 @@ public class NettyClient1 {
             channelFuture.addListener((ChannelFutureListener) future -> {
                 if (!channelFuture.isSuccess()) {
                     final EventLoop loop = channelFuture.channel().eventLoop();
-                    loop.schedule(() -> {
-                        reConnect();
-                    }, 1L, TimeUnit.SECONDS);
+                    loop.schedule(this::reConnect, 1L, TimeUnit.SECONDS);
                 }
             });
             clientChannel = channelFuture.channel();
