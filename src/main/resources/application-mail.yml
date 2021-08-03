@@ -1,0 +1,14 @@
+spring:
+  # 阿里钉钉发送邮件
+  mail:
+    host: smtp.mxhichina.com
+    port: 465
+    username: 用户名
+    password: 密码
+    default-encoding: utf-8
+    protocol: smtp
+    properties:
+      mail.debug: true
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.ssl.required: true

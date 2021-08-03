@@ -12,6 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -43,6 +46,9 @@ public class TestController {
 
     @Resource
     private ObjectMapper objectMapper;
+
+    @Autowired
+    JavaMailSender javaMailSender;
 
     @ApiOperation("Jackson自定义全局序列化测试")
     @RequestMapping("jackson")
@@ -128,6 +134,19 @@ public class TestController {
     @RequestMapping("test")
     public String hello() {
         return "hello测试文字";
+    }
+
+    @ApiOperation("邮件发送测试")
+    @RequestMapping("sendMail")
+    public String sendMail() {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setSubject("测试邮件");
+        mailMessage.setFrom("发送方地址");
+        mailMessage.setTo("接收方地址");
+        mailMessage.setText("测试内容");
+        mailMessage.setSentDate(new Date());
+        javaMailSender.send(mailMessage);
+        return "发送成功";
     }
 
 }
