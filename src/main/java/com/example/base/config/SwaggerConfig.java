@@ -1,6 +1,6 @@
 package com.example.base.config;
 
-import com.google.common.net.HttpHeaders;
+import org.springframework.http.HttpHeaders;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
