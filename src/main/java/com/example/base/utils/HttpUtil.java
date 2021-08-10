@@ -96,16 +96,13 @@ public class HttpUtil {
             httpClient = httpClientBuilder.build();
 
             //JVM停止或重启时，关闭连接池释放连接
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        httpClient.close();
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    httpClient.close();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
                 }
-            });
+            }));
 
         }
         return httpClient;
@@ -119,7 +116,7 @@ public class HttpUtil {
      * @return
      */
     public static String doGet(String url) {
-        return doGet(url, new HashMap<String, Object>());
+        return doGet(url, new HashMap<>());
     }
 
     /**
@@ -131,8 +128,7 @@ public class HttpUtil {
      */
     public static String doGet(String url, Map<String, Object> params) {
         long a = System.currentTimeMillis();
-        String apiUrl = url;
-        StringBuffer param = new StringBuffer();
+        StringBuilder param = new StringBuilder();
         int i = 0;
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             if (i == 0) {
@@ -146,9 +142,9 @@ public class HttpUtil {
         String result = null;
         CloseableHttpClient httpClient = getHttpClient();
         CloseableHttpResponse response = null;
-        HttpGet httpPost = null;
+        HttpGet httpPost;
         try {
-            httpPost = new HttpGet(apiUrl + param);
+            httpPost = new HttpGet(url + param);
             response = httpClient.execute(httpPost);
             int status = response.getStatusLine().getStatusCode();
 
