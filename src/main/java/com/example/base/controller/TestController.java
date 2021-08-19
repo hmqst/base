@@ -189,11 +189,10 @@ public class TestController {
             // 获取项目根目录
             ApplicationHome home = new ApplicationHome();
             // 组织命令并执行 win 平台运行需要 cmd /c
-            // mysqldump -h127.0.0.1 -uroot -p123456 --default-character-set=utf8 local_test > backupfile.sql
+            // mysqldump -h127.0.0.1 -uroot -p123456 --default-character-set=utf8 --hex-blob local_test > backupfile.sql
             // mysql -h127.0.0.1 -uroot -p123456 --default-character-set=utf8 local_test < backupfile.sql
-            // docker exec -it root mysqldump -uroot -p123456 -P3306 --default-character-set=utf8 local_test > backupfile.sql
-            // docker exec -it root mysqldump -uroot -p123456 -P3306 --default-character-set=utf8 local_test < backupfile.sql
-            // jdbc:mysql://172.10.8.239:3306/cihong?
+            // docker exec -it root mysqldump -uroot -p123456 -P3306 --default-character-set=utf8 --hex-blob local_test > backupfile.sql
+            // docker exec -it root mysql -uroot -p123456 -P3306 --default-character-set=utf8 local_test < backupfile.sql
             String url = datasourceUrl.substring(datasourceUrl.indexOf("//") + 2, datasourceUrl.indexOf("?"));
             String[] split = url.split("/");
             String[] ipAndPort = split[0].split(":");
@@ -205,7 +204,7 @@ public class TestController {
                     .append(" -u").append(username)
                     .append(" -p").append(password)
                     .append(" -P").append(ipAndPort[1])
-                    .append(" --default-character-set=utf8 ").append(split[1]).append(" > backupfile.sql");
+                    .append(" --default-character-set=utf8 --hex-blob ").append(split[1]).append(" > backupfile.sql");
             process = Runtime.getRuntime().exec(command.toString(), new String[]{}, home.getDir());
             // 获取返回结果
             inputStreamReader = new InputStreamReader(process.getErrorStream(), StandardCharsets.UTF_8);
