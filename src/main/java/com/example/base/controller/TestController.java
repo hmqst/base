@@ -189,8 +189,8 @@ public class TestController {
             // 获取项目根目录
             ApplicationHome home = new ApplicationHome();
             // 组织命令并执行 win 平台运行需要 cmd /c
-            // mysqldump -h127.0.0.1 -uroot -p123456 --default-character-set=utf8 --hex-blob local_test > backupfile.sql
-            // mysql -h127.0.0.1 -uroot -p123456 --default-character-set=utf8 local_test < backupfile.sql
+            // mysqldump -h127.0.0.1 -uroot -p123456 -P3306 --default-character-set=utf8 --hex-blob local_test > backupfile.sql
+            // mysql -h127.0.0.1 -uroot -p123456 -P3306 --default-character-set=utf8 local_test < backupfile.sql
             // docker exec -it root mysqldump -uroot -p123456 -P3306 --default-character-set=utf8 --hex-blob local_test > backupfile.sql
             // docker exec -it root mysql -uroot -p123456 -P3306 --default-character-set=utf8 local_test < backupfile.sql
             String url = datasourceUrl.substring(datasourceUrl.indexOf("//") + 2, datasourceUrl.indexOf("?"));
