@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2021-03-22 15:50
  */
 @Slf4j
-public class Myinterceptorl implements HandlerInterceptor {
+public class MyInterceptor implements HandlerInterceptor {
     /**
     * 该方法会在控制器方法前执行，其返回值表示是否中断后续操作。当其返回值为true时，表示继续向下执行；
     * 当其返回值为false时，会中断后续的所有操作（包括调用下一个拦截器和控制器类中的方法执行等）
