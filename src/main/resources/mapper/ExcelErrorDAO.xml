@@ -41,11 +41,11 @@
             <if test="number != null">
                 and number = #{number}
             </if>
-            <if test="sex != null and sex != ''">
-                and sex = #{sex}
+            <if test="sex != null">
+                and sex = #{sex.name}
             </if>
-            <if test="type != null and type != ''">
-                and type = #{type}
+            <if test="type != null">
+                and type = #{type.name}
             </if>
         </where>
     </select>
@@ -53,14 +53,14 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into local_test.excel_error(name, date, dates, number, sex, type)
-        values (#{name}, #{date}, #{dates}, #{number}, #{sex}, #{type})
+        values (#{name}, #{date}, #{dates}, #{number}, #{sex.name}, #{type.name})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into local_test.excel_error(name, date, dates, number, sex, type)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.date}, #{entity.dates}, #{entity.number}, #{entity.sex}, #{entity.type})
+            (#{entity.name}, #{entity.date}, #{entity.dates}, #{entity.number}, #{entity.sex.name}, #{entity.type.name})
         </foreach>
     </insert>
 
@@ -68,11 +68,11 @@
         insert into local_test.excel_error(name, date, dates, number, sex, type)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.date}, #{entity.dates}, #{entity.number}, #{entity.sex}, #{entity.type})
+            (#{entity.name}, #{entity.date}, #{entity.dates}, #{entity.number}, #{entity.sex.name}, #{entity.type.name})
         </foreach>
         on duplicate key update
-        name = values(name) , date = values(date) , dates = values(dates) , number = values(number) , sex = values(sex)
-        , type = values(type)
+        name = values(name) , date = values(date) , dates = values(dates) , number = values(number) , sex = values(sex.name)
+        , type = values(type.name)
     </insert>
 
     <!--通过主键修改数据-->
@@ -91,11 +91,11 @@
             <if test="number != null">
                 number = #{number},
             </if>
-            <if test="sex != null and sex != ''">
-                sex = #{sex},
+            <if test="sex != null">
+                sex = #{sex.name},
             </if>
-            <if test="type != null and type != ''">
-                type = #{type},
+            <if test="type != null">
+                type = #{type.name},
             </if>
         </set>
         where id = #{id}
