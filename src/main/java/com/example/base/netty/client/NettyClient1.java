@@ -9,10 +9,12 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -49,7 +51,8 @@ public class NettyClient1 {
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
                     ChannelPipeline pipeline = socketChannel.pipeline();
                     pipeline.addLast(new LineBasedFrameDecoder(1204));
-                    pipeline.addLast(new StringDecoder());
+                    pipeline.addLast(new StringEncoder(Charset.forName("UTF-8")));
+                    pipeline.addLast(new StringDecoder(Charset.forName("UTF-8")));
                     pipeline.addLast(new ChannelInboundHandlerAdapter(){
                         @Override
                         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -89,7 +92,7 @@ public class NettyClient1 {
                         @Override
                         public void channelInactive(ChannelHandlerContext ctx) throws Exception {
                             final EventLoop loop = ctx.channel().eventLoop();
-                            loop.schedule(NettyClient1.this::connect, 1L, TimeUnit.SECONDS);
+                            loop.schedule(NettyClient1.this::reConnect, 1L, TimeUnit.SECONDS);
                             super.channelInactive(ctx);
                         }
                     });

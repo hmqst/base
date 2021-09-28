@@ -5,7 +5,10 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import org.springframework.stereotype.Component;
+
+import java.nio.charset.Charset;
 
 @Component
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
@@ -36,7 +39,8 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
         // 定长协议 使用时不需要指定编码器
         /// pipeline.addLast(new FixedLengthFrameDecoder(3));
         // 定义反序列化器 将报文ByteBuf解析为java对象
-        pipeline.addLast(new StringDecoder());
+        pipeline.addLast(new StringEncoder(Charset.forName("UTF-8")));
+        pipeline.addLast(new StringDecoder(Charset.forName("UTF-8")));
         pipeline.addLast(new ServerHandler());
     }
 }
