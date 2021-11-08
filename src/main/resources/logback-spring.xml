@@ -86,6 +86,16 @@
         </encoder>
     </appender>
 
+    <!-- 日志输出到 SkyWalking -->
+    <appender name="skyWalkingLog" class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.log.GRPCLogClientAppender">
+        <!-- 日志输出编码 -->
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
     <!--配置日志输出的级别-->
     <root level="INFO">
         <appender-ref ref="console"/>
@@ -93,5 +103,6 @@
         <appender-ref ref="warnLog"/>
         <appender-ref ref="errorLog"/>
         <appender-ref ref="logStash"/>
+        <appender-ref ref="skyWalkingLog"/>
     </root>
 </configuration>

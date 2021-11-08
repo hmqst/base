@@ -97,6 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html")
                 // 请求地址放开
                 .antMatchers("/")
+                .antMatchers("/thymeleaf")
                 .antMatchers("/index")
                 .antMatchers("/admin")
                 .antMatchers("/excel/**")

@@ -1,3 +1,23 @@
+# 项目技术说明
+
+| 描述                   | 名称                                          | 版本号（boot：2.4.3）           |
+| ---------------------- | --------------------------------------------- | ------------------------------- |
+| Http 请求              | OkHttp + Retrofit + converter-jackson         | v2.9.0                          |
+| 邮件发送               | spring-boot-starter-mail                      |                                 |
+| Html解析器             | Jsoup                                         | v1.13.1                         |
+| 全文检索               | ElasticSearch                                 |                                 |
+| ElasticSearch 日志推送 | LogStash                                      | v5.3                            |
+| SkyWalking 日志推送    | apm-toolkit-logback-1.x                       | v8.7.0                          |
+| RabbitMQ               | spring-boot-starter-amqp                      |                                 |
+| WebSocket              | Netty                                         | v4.1.52.Final                   |
+| Redis                  | Redis + commons-pool2                         |                                 |
+| 数据库部分             | MySQL + Druid + PageHelperv--                 | v-- \| v1.1.22 \| v1.3.0        |
+| Api文档                | Knife4j                                       | v3.0.2                          |
+| 权限认证               | Oauth2                                        | autoconfigure：v2.1.3.RELEASE   |
+| OSS文件存储            | Minio                                         | v7.0.2                          |
+| 实体映射               | MapStruct                                     | v1.4.2.Final                    |
+| 其他工具               | Lombok + commons-lang3 + EasyExcel + FastJson | v-- \| v-- \| v2.2.6 \| v1.2.60 |
+
 # 多数据源配置及事务注意事项
 
 > 配置均在**config - mybatis**中
@@ -31,4 +51,3 @@
 - 使用 BigDecimal.valueOf(double) 而不是 new BigDecimal(double)，精度会存在丢失
 - 避免 Random 实例被多线程使用。
   在 JDK7 之后，可以直接使用API ThreadLocalRandom，而在 JDK7 之前，需要编码保证每个线程持有一个单独的 Random 实例
-  

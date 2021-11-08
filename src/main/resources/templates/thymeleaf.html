@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/jquery.slim.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="padding: 20px">
+<div class="row justify-content-around">
+    <div class="col-md-auto card">
+        <h3>普通取值 th:text="${}"</h3>
+        <p th:text="${user.toString()}">UserPO信息</p>
+        <p><strong>用户名：</strong><span th:text="${user.name}">name</span></p>
+        <p><strong>年 龄：</strong><span th:text="${user.age}">age</span></p>
+        <p><strong>角 色：</strong><span th:text="${user.role}">role</span></p>
+        <p><strong>男 人：</strong><span th:text="${user.man}">man</span></p>
+    </div>
+    <div th:object="${user}" class="col-md-auto card">
+        <h3>自定义变量取值 th:object="${}" th:text="*{toString()}"</h3>
+        <p th:text="*{toString()}">UserPO信息</p>
+        <p><strong>用户名：</strong><span th:text="*{name}">name</span></p>
+        <p><strong>年 龄：</strong><span th:text="*{age}">age</span></p>
+        <p><strong>角 色：</strong><span th:text="*{role}">role</span></p>
+        <p><strong>男 人：</strong><span th:text="*{man}">man</span></p>
+    </div>
+    <div class="col-md-auto card">
+        <h3>字面量</h3>
+        <p><strong>string：</strong><span th:text="'user'"></span></p>
+        <p><strong>number：</strong><span th:text="000123.1521"></span></p>
+        <p><strong>boolean：</strong><span th:text="true"></span></p>
+        <p><strong>字符串拼接（两种）：</strong><span th:text="|欢迎您:${user.name}|"></span></p>
+        <p><strong>运算（$外部）：</strong><span th:text="${user.man} ? '男' : '女'"></span></p>
+    </div>
+    <div class="col-md-auto card">
+        <h3>循环 判断 分支</h3>
+        <p><strong>循环 th:each="user,stat : ${users}"：</strong>
+            <br/>
+            <span th:each="bool,stat : ${booleans}" th:text="' ' + ${bool}"></span>
+            <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#statModal">stat解释</button>
+        </p>
+        <p><strong>判断 th:if="${}"：</strong><span th:if="${user.man}">是男的</span>
+            <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#ifModal">if条件解释</button>
+        </p>
+        <p th:switch="${user.role}"><strong>分支：</strong>
+            <span th:case="'admin'">管理员</span>
+            <span th:case="'manager'">经理</span>
+            <span th:case="*">其他用户</span>
+        </p>
+    </div>
+</div>
+<div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">对象</th>
+            <th scope="col">作用</th>
+            <th scope="col">使用</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td><code>#ctx</code></td>
+            <td>获取Thymeleaf自己的Context对象</td>
+            <td th:text="${#ctx.user.toString()}"></td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td><code>#requset</code></td>
+            <td>如果是web程序，可以获取HttpServletRequest对象</td>
+            <td th:text="${#request.getRequestURL()}"></td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td><code>#response</code></td>
+            <td>如果是web程序，可以获取HttpServletReponse对象</td>
+            <td th:text="${#response.getContentType()}"></td>
+        </tr>
+        <tr>
+            <th scope="row">4</th>
+            <td><code>#session</code></td>
+            <td>如果是web程序，可以获取HttpSession对象</td>
+            <td th:text="${#objects.nullSafe(#session, 'null')}"></td>
+        </tr>
+        <tr>
+            <th scope="row">5</th>
+            <td><code>#servletContext</code></td>
+            <td>如果是web程序，可以获取HttpServletContext对象</td>
+            <td th:text="${#servletContext.getVirtualServerName()}"></td>
+        </tr>
+        <tr>
+            <th scope="row">6</th>
+            <td><code>#dates</code></td>
+            <td>处理java.util.date的工具对象</td>
+            <td th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></td>
+        </tr>
+        <tr>
+            <th scope="row">7</th>
+            <td><code>#calendars</code></td>
+            <td>处理java.util.calendar的工具对象</td>
+            <td th:text="${#calendars.createNow().toInstant()}"></td>
+        </tr>
+        <tr>
+            <th scope="row">8</th>
+            <td><code>#numbers</code></td>
+            <td>用来对数字格式化的方法</td>
+            <td th:text="${#numbers.formatInteger(123456, 10)}"></td>
+        </tr>
+        <tr>
+            <th scope="row">9</th>
+            <td><code>#strings</code></td>
+            <td>用来处理字符串的方法</td>
+            <td th:text="${#strings.toUpperCase('lowerCase To UpperCase')}"></td>
+        </tr>
+        <tr>
+            <th scope="row">10</th>
+            <td><code>#bools</code></td>
+            <td>用来判断布尔值的方法</td>
+            <td th:text="${#bools.isFalse(0)}"></td>
+        </tr>
+        <tr>
+            <th scope="row">11</th>
+            <td><code>#arrays</code></td>
+            <td>用来护理数组的方法</td>
+            <td th:text="${#arrays.isEmpty(null)}"></td>
+        </tr>
+        <tr>
+            <th scope="row">12</th>
+            <td><code>#lists</code></td>
+            <td>用来处理List集合的方法</td>
+            <td th:text="${#lists.isEmpty(null)}"></td>
+        </tr>
+        <tr>
+            <th scope="row">13</th>
+            <td><code>#sets</code></td>
+            <td>用来处理set集合的方法</td>
+            <td th:text="${#sets.isEmpty(null)}"></td>
+        </tr>
+        <tr>
+            <th scope="row">14</th>
+            <td><code>#maps</code></td>
+            <td>用来处理map集合的方法</td>
+            <td th:text="${#maps.isEmpty(null)}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="statModal" tabindex="-1" aria-labelledby="statModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statModalLabel">stat 解释</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item">index，从0开始的角标</li>
+                    <li class="list-group-item">count，元素的个数，从1开始</li>
+                    <li class="list-group-item">size，总元素个数</li>
+                    <li class="list-group-item">current，当前遍历到的元素</li>
+                    <li class="list-group-item">even/odd，返回是否为奇偶，boolean值</li>
+                    <li class="list-group-item">first/last，返回是否为第一或最后，boolean值</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ifModal" tabindex="-1" aria-labelledby="ifModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ifModalLabel">if 解释</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item">表达式值为true</li>
+                    <li class="list-group-item">表达式值为非0数值</li>
+                    <li class="list-group-item">表达式值为非0字符</li>
+                    <li class="list-group-item">表达式值为字符串，但不是"false","no","off"</li>
+                    <li class="list-group-item">表达式不是布尔、字符串、数字、字符中的任何一种</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
