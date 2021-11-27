@@ -10,9 +10,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Redis操作工具类
  * @author benben
- * @program base
- * @Description Redis操作工具类
  * @date 2021-03-22 15:50
  */
 @Component

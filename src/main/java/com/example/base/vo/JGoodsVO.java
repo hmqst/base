@@ -5,9 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 京东商品内容
  * @author benben
- * @program base
- * @Description 京东商品内容
  * @date 2021-05-28 10:04
  */
 @Data

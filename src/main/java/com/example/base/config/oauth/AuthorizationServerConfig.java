@@ -23,8 +23,7 @@ import javax.annotation.Resource;
 
 /**
  * oauth2授权服务器配置类
- * 2020年9月11日 17:53:19
- * 尹泽鹏
+ * @date 2020年9月11日 17:53:19
  */
 @Configuration
 @EnableAuthorizationServer
@@ -38,7 +37,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * 客户端参数配置
-     * 2020年9月11日 17:54:35
+     * @date 2020年9月11日 17:54:35
      *
      * @param clients
      * @throws Exception

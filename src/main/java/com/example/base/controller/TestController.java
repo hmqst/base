@@ -39,8 +39,6 @@ import java.util.Map;
 
 /**
  * @author benben
- * @program base
- * @Description
  * @date 2021-03-22 15:50
  */
 @RestController

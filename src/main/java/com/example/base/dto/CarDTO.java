@@ -6,9 +6,8 @@ import lombok.ToString;
 import java.io.Serializable;
 
 /**
+ * MapStruct测试用DTO
  * @author benben
- * @program base
- * @Description MapStruct测试用DTO
  * @date 2021-03-18 15:35
  */
 

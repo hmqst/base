@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * 全局异常捕获处理（Exception）
  * @author benben
- * @program base
- * @Description 全局异常捕获处理（Exception）
  * @date 2021-03-22 15:50
  */
 @ControllerAdvice

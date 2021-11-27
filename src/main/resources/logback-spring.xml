@@ -9,7 +9,7 @@
     <!-- CONSOLG 控制台日志-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%blue(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level)  |%boldGreen(%logger:%line) |%black(%msg%n)</pattern>
+            <pattern>%blue(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level)  |%boldGreen(%logger:%line) | (%msg%n)</pattern>
             <charset>${charsetEncoding}</charset>
         </encoder>
     </appender>

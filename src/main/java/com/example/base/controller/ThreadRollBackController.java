@@ -33,8 +33,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author benben
- * @program base
- * @Description
  * @date 2021-03-19 10:34
  */
 @RestController

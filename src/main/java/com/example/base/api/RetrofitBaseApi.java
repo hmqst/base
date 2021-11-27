@@ -7,9 +7,8 @@ import retrofit2.http.*;
 import java.util.Map;
 
 /**
+ * Retrofit 基础请求封装
  * @author benben
- * @program base
- * @Description Retrofit 基础请求封装
  * @date 2021-08-04 15:13
  */
 public interface RetrofitBaseApi {

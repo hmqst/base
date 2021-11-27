@@ -8,9 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * MapStruct测试用PO
  * @author benben
- * @program base
- * @Description MapStruct测试用PO
  * @date 2021-03-18 15:34
  */
 @Data

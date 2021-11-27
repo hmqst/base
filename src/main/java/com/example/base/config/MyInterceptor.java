@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 定义拦截器处理方法 （拦截Controller）
  * @author benben
- * @program base
- * @Description 定义拦截器处理方法 （拦截Controller）
  * @date 2021-03-22 15:50
  */
 @Slf4j

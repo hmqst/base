@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * token无效异常类重写
  * @date 2020年11月6日08:55:56
- * @notes token无效异常类重写
  */
 @Component
 public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {

@@ -3,9 +3,8 @@ package com.example.base.utils;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
+ * 自旋锁
  * @author benben
- * @program base
- * @Description 自旋锁
  * @date 2021-06-26 13:38
  */
 public class SpinLock {

@@ -43,8 +43,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author benben
- * @program base
- * @Description
  * @date 2021-05-28 8:28
  */
 @RestController

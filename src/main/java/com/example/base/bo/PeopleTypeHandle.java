@@ -14,8 +14,6 @@ import java.util.List;
 
 /**
  * @author benben
- * @program base
- * @Description
  * @date 2021-04-06 9:36
  */
 @MappedJdbcTypes(JdbcType.VARCHAR)

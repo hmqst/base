@@ -8,8 +8,6 @@ import org.mapstruct.Mapping;
 
 /**
  * @author benben
- * @program base
- * @Description
  * @date 2021-03-18 15:38
  */
 @Mapper(componentModel = "spring", imports = {TypeEnum.class, Math.class})

@@ -9,8 +9,6 @@ import java.io.Serializable;
 
 /**
  * @author benben
- * @program base
- * @Description
  * @date 2021-04-06 9:33
  */
 @Data

@@ -10,13 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ *  DirectExchange 的路由策略是将消息队列绑定到一个DirectExchange 上，当一条消息到达
+ *  DirectExchange 时会被转发到与该条消息routing key相同的Queue 上，例如消息队列名为
+ *  hello-queue”，则routing key为“hello-queue”的消息会被该消息队列接收。
+ *  <p>
+ *  使用此模式DirectExchange和Binding无效  默认是负载均衡的
  * @author benben
- * @program base
- * @Description DirectExchange 的路由策略是将消息队列绑定到一个DirectExchange 上，当一条消息到达
- * DirectExchange 时会被转发到与该条消息routing key相同的Queue 上，例如消息队列名为
- * hello-queue”，则routing key为“hello-queue”的消息会被该消息队列接收。
- * <p>
- * 使用此模式DirectExchange和Binding无效  默认是负载均衡的
  * @date 2021-03-30 15:06
  */
 @Configuration

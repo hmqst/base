@@ -10,10 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author benben
- * @program base
- * @Description FanoutExchange 的数据交换策略是把所有到达FanoutExchange 的消息转发给所有与它绑定的
+ * FanoutExchange 的数据交换策略是把所有到达FanoutExchange 的消息转发给所有与它绑定的
  * Queue ，在这种策略中，routingkey 将不起任何作用，
+ * @author benben
  * @date 2021-03-30 16:33
  */
 @Configuration

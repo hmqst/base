@@ -11,9 +11,8 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import java.util.concurrent.*;
 
 /**
+ * 线程池和默认Async注解线程池和定时任务线程池
  * @author benben
- * @program base
- * @Description 线程池和默认Async注解线程池和定时任务线程池
  * @date 2021-03-24 14:46
  */
 @Configuration

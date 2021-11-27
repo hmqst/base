@@ -10,10 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author benben
- * @program base
- * @Description Queue 通过routingkey 绑定到TopicExchange上，当消息到达TopicExchange后，TopicExchange根据消息的
+ * Queue 通过routingkey 绑定到TopicExchange上，当消息到达TopicExchange后，TopicExchange根据消息的
  * routingkey 将消息路由到一个或者多个Queue上
+ * @author benben
  * @date 2021-04-01 8:58
  */
 @Configuration

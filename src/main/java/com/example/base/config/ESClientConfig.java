@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author benben
- * @program base
- * @Description
  * @date 2021-05-28 9:33
  */
 @Configuration

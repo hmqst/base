@@ -6,9 +6,8 @@ import lombok.ToString;
 import java.util.Date;
 
 /**
+ * Controller日志记录
  * @author benben
- * @program base
- * @Description Controller日志记录
  * @date 2021-03-22 15:50
  */
 @Data

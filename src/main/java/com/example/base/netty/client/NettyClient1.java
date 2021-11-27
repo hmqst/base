@@ -18,9 +18,8 @@ import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Netty客户端
  * @author benben
- * @program base
- * @Description Netty客户端
  * @date 2021-03-24 11:29
  */
 @Component

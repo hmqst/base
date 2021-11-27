@@ -9,9 +9,8 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
+ * 日期转换类
  * @author benben
- * @program base
- * @Description 日期转换类
  * @date 2021-07-17 10:46
  */
 public class DateTimeConvert {

@@ -6,9 +6,8 @@ import org.springframework.data.redis.listener.KeyExpirationEventMessageListener
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
 /**
+ * RedisKey失效监听器
  * @author benben
- * @program base
- * @Description RedisKey失效监听器
  * @date 2021-03-22 15:50
  */
 @Slf4j

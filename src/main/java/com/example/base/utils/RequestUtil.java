@@ -15,9 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 请求工具类
  * @author benben
- * @program base
- * @Description 请求工具类
  * @date 2021-03-22 15:50
  */
 public class RequestUtil {

@@ -3,10 +3,8 @@ package com.example.base.config.excel;
 import lombok.Data;
 
 /**
- * @program: cihongCharity
- * @description:
- * @author: lvyy
- * @create: 2021-01-28 16:47
+ * @author benben
+ * @date 2021-01-28 16:47
  **/
 
 @Data

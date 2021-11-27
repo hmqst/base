@@ -16,9 +16,8 @@
 //import javax.sql.DataSource;
 //
 ///**
+// * 数据库连接配置
 // * @author benben
-// * @program bf
-// * @Description 数据库连接配置
 // * @date 2021-05-08 16:27
 // */
 //@Configuration

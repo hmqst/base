@@ -3,9 +3,8 @@ package com.example.base.constant;
 import okhttp3.Credentials;
 
 /**
+ * Retrofit用常量數據
  * @author benben
- * @program base
- * @Description Retrofit用常量數據
  * @date 2021-08-04 14:43
  */
 public class RetrofitConstant {
