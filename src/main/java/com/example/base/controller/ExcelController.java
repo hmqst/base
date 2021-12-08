@@ -12,10 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -57,7 +54,7 @@ public class ExcelController {
 
     @ApiOperation("读取（导入）")
     @PostMapping("read")
-    public ResultBean read(MultipartFile file) {
+    public ResultBean read(@RequestPart MultipartFile file) {
         try {
             // 判断文件
             if (file == null) {

@@ -22,6 +22,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -60,7 +61,7 @@ public class ThreadRollBackController {
     @Transactional
     @ApiOperation("多线程插入数据库（ExcelPO）")
     @PostMapping("readSync")
-    public ResultBean readSync(MultipartFile file) {
+    public ResultBean readSync(@RequestPart MultipartFile file) {
         // 公平锁 加锁 防止高并发情况下 数据库连接池最大连接数量不够用（事务开启后不提交或回滚会保持连接）
         reentrantLock.lock();
         try {
