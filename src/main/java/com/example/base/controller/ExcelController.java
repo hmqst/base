@@ -106,16 +106,29 @@ public class ExcelController {
     @ApiOperation("写入（导出）")
     @GetMapping("write")
     public void write(String header, String excelName, HttpServletResponse response) throws IOException {
-        List<ExcelPO> excels = excelDao.listAll(null);
-        List<List<String>> head = new ArrayList<>();
-        head.add(new ArrayList<String>() {{
-            add(StringUtil.isEmpty(header) ? "测试表头" : header);
-        }});
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-        excelName = URLEncoder.encode(StringUtil.isEmpty(excelName) ? "测试表格" : excelName, "UTF-8").replaceAll("\\+", "%20");
-        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + excelName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), ExcelPO.class).head(head).sheet(0).doWrite(excels);
+        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
+        try {
+            List<ExcelPO> excels = excelDao.listAll(null);
+            List<List<String>> head = new ArrayList<>();
+            head.add(new ArrayList<String>() {{
+                add(StringUtil.isEmpty(header) ? "测试表头" : header);
+            }});
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding("utf-8");
+            // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+            excelName = URLEncoder.encode(StringUtil.isEmpty(excelName) ? "测试表格" : excelName, "UTF-8").replaceAll("\\+", "%20");
+            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + excelName + ".xlsx");
+            // 这里需要设置不关闭流
+            EasyExcel.write(response.getOutputStream(), ExcelPO.class).head(head).autoCloseStream(Boolean.FALSE).sheet(0).doWrite(excels);
+        } catch (Exception e) {
+            // 重置response
+            response.reset();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            Map<String, String> map = new HashMap<>();
+            map.put("status", "failure");
+            map.put("message", "下载文件失败" + e.getMessage());
+            response.getWriter().println(JSON.toJSONString(map));
+        }
     }
 }
