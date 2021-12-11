@@ -46,9 +46,9 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .contact(new Contact("benben", null, "173844641@qq.com"))
-                .title("account-server接口文档")
-                .description("account-server接口文档")
-                .termsOfServiceUrl("http://javadaily.cn")
+                .title("hmqst 的接口文档")
+                .description("hmqst 的接口文档")
+                .termsOfServiceUrl("https://github.com/hmqst")
                 .license("许可证链接")
                 .licenseUrl("许可证地址")
                 .version(VERSION)
