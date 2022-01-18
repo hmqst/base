@@ -6,9 +6,11 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.timeout.IdleStateHandler;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.Charset;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
@@ -41,6 +43,8 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
         // 定义反序列化器 将报文ByteBuf解析为java对象
         pipeline.addLast("encoder", new StringEncoder(Charset.forName("UTF-8")));
         pipeline.addLast("decoder", new StringDecoder(Charset.forName("UTF-8")));
+        // 用于心跳检测 读空闲 写空闲 读写空闲时间
+//        pipeline.addLast(new IdleStateHandler(15, 30, 40, TimeUnit.SECONDS));
         pipeline.addLast(new ServerHandler());
     }
 }

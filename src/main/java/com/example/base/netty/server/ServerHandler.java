@@ -7,6 +7,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -63,4 +64,24 @@ public class ServerHandler extends SimpleChannelInboundHandler<String> {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         ctx.close();
     }
+
+    /*@Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        //super.userEventTriggered(ctx, evt);
+        if (evt instanceof IdleStateEvent){
+            IdleStateEvent evt1 = (IdleStateEvent) evt;
+            switch (evt1.state()) {
+                case READER_IDLE:
+                    // 读空闲
+                    break;
+                case WRITER_IDLE:
+                    // 写空闲
+                    break;
+                case ALL_IDLE:
+                    // 读写空闲
+                    break;
+            }
+            // 做些什么 比如发送心跳包
+        }
+    }*/
 }
