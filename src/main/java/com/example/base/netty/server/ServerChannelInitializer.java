@@ -19,7 +19,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipeline = socketChannel.pipeline();
 
-        /*// websocket基于http协议，所以需要http编解码器
+        /*// 基于http协议时，使用需要http编解码器
         pipeline.addLast(new HttpServerCodec());
         // 添加对于读写大数据流的支持
         pipeline.addLast(new ChunkedWriteHandler());
@@ -28,9 +28,9 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
 
         // ================= 上述是用于支持http协议的 ==============
 
-        // websocket 服务器处理的协议，用于给指定的客户端进行连接访问的路由地址
-        // 比如处理一些握手动作(ping,pong)
-        pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
+        // 指定的客户端进行连接访问的路由地址 ws/host:port/address
+        // 将 http 升级为 ws 协议 保持长连接
+        pipeline.addLast(new WebSocketServerProtocolHandler("/address"));
 
         // 自定义handler
         pipeline.addLast(new ServerHandler());*/
