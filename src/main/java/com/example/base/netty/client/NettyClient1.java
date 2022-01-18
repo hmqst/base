@@ -50,21 +50,21 @@ public class NettyClient1 {
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
                     ChannelPipeline pipeline = socketChannel.pipeline();
                     pipeline.addLast(new LineBasedFrameDecoder(1204));
-                    pipeline.addLast(new StringEncoder(Charset.forName("UTF-8")));
-                    pipeline.addLast(new StringDecoder(Charset.forName("UTF-8")));
-                    pipeline.addLast(new ChannelInboundHandlerAdapter(){
+                    pipeline.addLast("encoder", new StringEncoder(Charset.forName("UTF-8")));
+                    pipeline.addLast("decoder", new StringDecoder(Charset.forName("UTF-8")));
+                    pipeline.addLast(new SimpleChannelInboundHandler<String>(){
                         @Override
-                        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                            super.channelRead(ctx, msg);
+                        public void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+                            //super.channelRead(ctx, msg);
                             if (onResultListener != null){
-                                onResultListener.onResult(msg.toString());
+                                onResultListener.onResult(msg);
                             }
                             log.info("【Netty客户端】接收到数据：" + msg);
                         }
 
                         @Override
                         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                            super.channelActive(ctx);
+                            //super.channelActive(ctx);
                             sendMessage("客服端在链接成功时发送的数据");
                             log.info("【Netty客户端】channelActive");
                         }
@@ -83,7 +83,7 @@ public class NettyClient1 {
 
                         @Override
                         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-                            super.exceptionCaught(ctx, cause);
+                            //super.exceptionCaught(ctx, cause);
                             ctx.close();
                         }
 
@@ -92,7 +92,7 @@ public class NettyClient1 {
                         public void channelInactive(ChannelHandlerContext ctx) throws Exception {
                             final EventLoop loop = ctx.channel().eventLoop();
                             loop.schedule(NettyClient1.this::reConnect, 1L, TimeUnit.SECONDS);
-                            super.channelInactive(ctx);
+                            //super.channelInactive(ctx);
                         }
                     });
                 }

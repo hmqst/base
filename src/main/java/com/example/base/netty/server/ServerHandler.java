@@ -4,6 +4,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
@@ -12,25 +13,27 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class ServerHandler extends ChannelInboundHandlerAdapter {
+public class ServerHandler extends SimpleChannelInboundHandler<String> {
     /**
      * 用于记录和管理所有客户端的channel
      */
     private static ChannelGroup clients = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        StringBuilder content = new StringBuilder(msg.toString());
+    public void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+        StringBuilder content = new StringBuilder(msg);
         log.info("【Netty服务端】接收到客户端 " + ctx.channel() + " 消息:" + content);
         content.append("--服务器回复");
         content.append(System.getProperty("line.separator"));
 
         // 将客户端发送过来的消息刷到所有的channel中
         for (Channel channel : clients) {
-            channel.writeAndFlush(Unpooled.copiedBuffer(content.toString().getBytes()));
-            // 提交到 NIOEventLoop 中的 TaskQueue 或 ScheduleTaskQueue 中异步或异步延时执行（执行耗时任务时）
+            if (channel != ctx.channel()) {
+                channel.writeAndFlush(Unpooled.copiedBuffer(content.toString().getBytes()));
+                // 提交到 NIOEventLoop 中的 TaskQueue 或 ScheduleTaskQueue 中异步或异步延时执行（执行耗时任务时）
 //            channel.eventLoop().execute(() -> channel.writeAndFlush(Unpooled.copiedBuffer(content.toString().getBytes())));
 //            channel.eventLoop().schedule(() -> channel.writeAndFlush(Unpooled.copiedBuffer(content.toString().getBytes())), 1000, TimeUnit.SECONDS);
+            }
         }
     }
 
@@ -45,6 +48,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     /**
      * 客户端销毁的时候触发
+     *
      * @param ctx
      * @throws Exception
      */
@@ -53,5 +57,10 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         // 当handlerRemoved 被触发时候，channelGroup会自动移除对应的channel
         /// clients.remove(ctx.channel());
         log.info("【Netty服务端】客户端断开，当前被移除的channel是：" + ctx.channel());
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        ctx.close();
     }
 }
