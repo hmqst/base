@@ -9,6 +9,8 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 public class ServerHandler extends ChannelInboundHandlerAdapter {
     /**
@@ -26,6 +28,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         // 将客户端发送过来的消息刷到所有的channel中
         for (Channel channel : clients) {
             channel.writeAndFlush(Unpooled.copiedBuffer(content.toString().getBytes()));
+            // 提交到 NIOEventLoop 中的 TaskQueue 或 ScheduleTaskQueue 中异步或异步延时执行（执行耗时任务时）
+//            channel.eventLoop().execute(() -> channel.writeAndFlush(Unpooled.copiedBuffer(content.toString().getBytes())));
+//            channel.eventLoop().schedule(() -> channel.writeAndFlush(Unpooled.copiedBuffer(content.toString().getBytes())), 1000, TimeUnit.SECONDS);
         }
     }
 
