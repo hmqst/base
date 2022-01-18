@@ -4,6 +4,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
@@ -26,14 +27,13 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
         // 对httpMessage进行聚合
         pipeline.addLast(new HttpObjectAggregator(1024*64));
 
-        // ================= 上述是用于支持http协议的 ==============
-
         // 指定的客户端进行连接访问的路由地址 ws/host:port/address
         // 将 http 升级为 ws 协议 保持长连接
         pipeline.addLast(new WebSocketServerProtocolHandler("/address"));
 
-        // 自定义handler
+        // 自定义handler 此时 handler 中数据类型应为 TextWebSocketFrame
         pipeline.addLast(new ServerHandler());*/
+        // ================= 上述是用于支持http协议的 客户端连接使用 ws/host:port/address ==============
 
         // 用换行符\n或者\r\n作为依据，遇到\n或者\r\n都认为是一条完整的消息。
         // 1024报文最大长度 true超出最大长度立刻抛出异常 true解析到的报文不带换行符
