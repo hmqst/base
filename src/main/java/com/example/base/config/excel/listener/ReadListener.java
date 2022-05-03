@@ -57,9 +57,8 @@ public class ReadListener<T> extends AnalysisEventListener<T> {
             Integer columnIndex = e.getColumnIndex();
             CellData cellData = e.getCellData();
             String stringValue = cellData.getStringValue();
-            log.info("第{}行，第{}列解析异常", rowIndex + 1, e.getColumnIndex() + 1);
-            // 判断出错行是否在errorMap中
-            hashMap.put("出错行号，列号", "行号: " + ++rowIndex + " 列号：" + ++columnIndex + "转换错误的值为：" + stringValue);
+            log.info("第{}行，第{}列解析异常，错误的值为：{}", rowIndex + 1, e.getColumnIndex() + 1, stringValue);
+            hashMap.put("行号: " + ++rowIndex + " 列号：" + ++columnIndex + "数据错误", "错误的值为：" + stringValue);
             errorListIndex.add(hashMap);
         }
     }
