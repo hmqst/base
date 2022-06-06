@@ -45,7 +45,7 @@ import java.util.Map;
 @RequestMapping("test")
 @Api(tags = "测试相关")
 @Slf4j
-public class TestController {
+public class MailAndMqController {
 
     @Resource
     private RabbitTemplate rabbitTemplate;
