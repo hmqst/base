@@ -110,6 +110,8 @@ public class InterfaceLogAop {
         pool.insertClassPath(classPath);
 
         CtClass cc = pool.get(className);
+
+        // 注意 同名重载方法 获取到的始终为第一个方法
         CtMethod cm = cc.getDeclaredMethod(methodName);
         MethodInfo methodInfo = cm.getMethodInfo();
         CodeAttribute codeAttribute = methodInfo.getCodeAttribute();

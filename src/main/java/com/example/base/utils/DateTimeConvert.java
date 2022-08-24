@@ -10,6 +10,7 @@ import java.util.TimeZone;
 
 /**
  * 日期转换类
+ * 子类本身带有 toLocalTime() 方法时，调用此工具转换可能会报错 如：java.sql.Time.toLocalTime()
  * @author benben
  * @date 2021-07-17 10:46
  */
