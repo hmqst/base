@@ -1,5 +1,6 @@
 package com.example.base.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.PartitionOffset;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
  * @author benben
  * @date 2022-05-31 15:59
  */
+@Slf4j
 @RestController
 public class KafkaController {
 
@@ -30,9 +32,9 @@ public class KafkaController {
     public Object test(@PathVariable String msg){
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send("topic1", "key", msg);
         future.addCallback(result -> {
-            System.out.println(msg + "--------------发送成功" + LocalDateTime.now().toString());
+            log.info(msg + "--------------发送成功" + LocalDateTime.now().toString());
         }, ex -> {
-            System.out.println(msg + "--------------发送失败" + LocalDateTime.now().toString());
+            log.info(msg + "--------------发送失败" + LocalDateTime.now().toString());
         });
         return "00";
     }
@@ -41,9 +43,9 @@ public class KafkaController {
     public void listenGroup(ConsumerRecord<String, String> record,
                             Acknowledgment ack) {
         String value = record.value();
-        System.out.println(value);
-        System.out.println(record);
-        // ⼿动提交offset
+        log.info(value);
+        log.info(record.toString());
+        // 手动提交offset
         ack.acknowledge();
     }
 
@@ -52,13 +54,13 @@ public class KafkaController {
             @TopicPartition(topic = "topic2", partitions = "0",
                     partitionOffsets = @PartitionOffset(partition = "1",
                             initialOffset = "100")) // 自定偏移量读取
-    },concurrency = "3")//concurrency就是同组下的消费者个数，就是并发消费数（自动创建三个相同的方法），建议⼩于等于分区总数
+    },concurrency = "3")//concurrency就是同组下的消费者个数，就是并发消费数（自动创建三个相同的方法），建议小于等于分区总数
     public void listenGroupTwo(ConsumerRecord<String, String> record,
                             Acknowledgment ack) {
         String value = record.value();
-        System.out.println(value);
-        System.out.println(record);
-        // ⼿动提交offset
+        log.info(value);
+        log.info(record.toString());
+        // 手动提交offset
         ack.acknowledge();
     }
 }

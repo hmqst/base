@@ -1,5 +1,6 @@
 package com.example.base.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class HttpUtil {
     private static CloseableHttpClient httpClient = null;
 
@@ -94,16 +96,6 @@ public class HttpUtil {
                     .setRetryHandler(new DefaultHttpRequestRetryHandler(0, false));
 
             httpClient = httpClientBuilder.build();
-
-            //JVM停止或重启时，关闭连接池释放连接
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                try {
-                    httpClient.close();
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }));
-
         }
         return httpClient;
     }
@@ -164,7 +156,7 @@ public class HttpUtil {
                     "# 响应报文：" + result + "\n" +
                     "# 耗时：" + (System.currentTimeMillis() - a) + "\n" +
                     "########################################################################\n";
-            System.out.println(logsb);
+            log.info(logsb);
 
             return result;
         } catch (IOException e) {
@@ -173,9 +165,9 @@ public class HttpUtil {
                     EntityUtils.consume(response.getEntity());
                 }
             } catch (IOException e1) {
-                System.out.println(e.getMessage());
+                log.error(e.getMessage());
             }
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
         return result;
     }
@@ -216,7 +208,7 @@ public class HttpUtil {
                     "# 响应报文：" + result + "\n" +
                     "# 耗时：" + (System.currentTimeMillis() - a) + "\n" +
                     "########################################################################\n";
-            System.out.println(logsb);
+            log.info(logsb);
 
             return result;
         } catch (Exception e) {
@@ -225,9 +217,9 @@ public class HttpUtil {
                     EntityUtils.consume(response.getEntity());
                 }
             } catch (IOException e1) {
-                System.out.println(e.getMessage());
+                log.error(e.getMessage());
             }
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
         return result;
     }

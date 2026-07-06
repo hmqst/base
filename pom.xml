@@ -316,13 +316,13 @@
                     <!--username-->
                     <username>root</username>
                     <!--password-->
-                    <password>123456</password>
+                    <password>cihongTest239.</password>
                     <!--driver-->
                     <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
                     <!--jdbc url-->
-                    <jdbcUrl>jdbc:mysql://127.0.0.1:3306/local_test?useSSL=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;serverTimezone=Asia/Shanghai&amp;useInformationSchema=true</jdbcUrl>
+                    <jdbcUrl>jdbc:mysql://172.10.8.239:3306/marketing?useSSL=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;serverTimezone=Asia/Shanghai&amp;useInformationSchema=true</jdbcUrl>
                     <!--生成文件类型 HTML WORD MD-->
-                    <fileType>HTML</fileType>
+                    <fileType>MD</fileType>
                     <!--打开文件输出目录-->
                     <openOutputDir>true</openOutputDir>
                     <!--生成模板-->
