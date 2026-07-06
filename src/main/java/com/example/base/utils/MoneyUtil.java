@@ -1,20 +1,23 @@
 package com.example.base.utils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * 人民币转大写
  * @author benben
  * @date 2022-05-19 11:18
  */
 public class MoneyUtil {
-    private static final String UNIT = "万千佰拾亿千佰拾万千佰拾元角分";
+    private static final String UNIT = "万仟佰拾亿仟佰拾万仟佰拾元角分";
     private static final String DIGIT = "零壹贰叁肆伍陆柒捌玖";
-    private static final double MAX_VALUE = 9999999999999.99D;
+    private static final BigDecimal MAX_VALUE = BigDecimal.valueOf(9999999999999.99D);
 
-    public static String change(double money) {
-        if (money < 0 || money > MAX_VALUE){
+    public static String change(BigDecimal money) {
+        if (money == null || money.compareTo(BigDecimal.ZERO) < 0 || money.compareTo(MAX_VALUE) > 0){
             return "参数非法!";
         }
-        long l = Math.round(money * 100);
+        long l = money.multiply(BigDecimal.valueOf(100)).setScale(0, RoundingMode.HALF_UP).longValue();
         if (l == 0){
             return "零元整";
         }
